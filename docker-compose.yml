@@ -1,0 +1,83 @@
+
+version: "3.8"
+
+services:
+  backend:
+    container_name: backend
+    hostname: backend
+    build:
+      context: ./backend
+      dockerfile: ./.docker/Dockerfile.Dev
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 8888:8888
+    depends_on:
+      - db
+    networks:
+      - twitter
+    volumes:
+      - ./backend:/app
+    profiles: ["dev"]
+
+  frontend:
+    container_name: frontend
+    hostname: frontend
+    build:
+      context: ./frontend
+      dockerfile: ./.docker/Dockerfile.Dev
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 3000:3000 
+    networks:
+      - twitter
+    volumes:
+      - ./frontend:/app
+    profiles: ["dev"]
+
+  db:
+    image: mysql:8.0.27
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: twitter
+      MYSQL_PASSWORD: twitter
+      MYSQL_ROOT_PASSWORD: twitter
+      MYSQL_DB: twitter
+      TZ: Asia/Tokyo
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  backend-prd:
+    build:
+      context: ./backend
+      dockerfile: ./.docker/Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 8888:8888
+    depends_on:
+      - db
+    networks:
+      - twitter
+    profiles: ["prd"]
+
+  frontend-prd:
+    build:
+      context: ./frontend
+      dockerfile: ./.docker/Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 3000:3000 
+    networks:
+      - twitter
+    profiles: ["prd"]
+
+
+volumes:
+  mysql-data:
+
+networks:
+  twitter:
