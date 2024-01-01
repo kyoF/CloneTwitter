@@ -1,10 +1,11 @@
 package backend
 
 import (
+	"backend/presentation/router"
+	"backend/application/query_service"
 	"backend/application/usecase"
 	"backend/infrastructure"
 	"backend/infrastructure/config"
-	"backend/presentation/router"
 )
 
 func main() {
@@ -13,11 +14,11 @@ func main() {
     tweetRepo := infrastructure.NewTweetRepository(db)
     userRepo := infrastructure.NewUserRepository(db)
 
-    fetchUserUsecase := usecase.NewFetchUserUsecase(userRepo, tweetRepo)
-    fetchUserRouter := router.NewFetchUserRouter(fetchUserUsecase)
+    fetchUserQueryService := query_service.NewFetchUserQueryService(userRepo, tweetRepo)
+    fetchUserRouter := router.NewFetchUserRouter(fetchUserQueryService)
 
-    fetchAllTweetsUsecase := usecase.NewFetchAllTweetsUsecase(tweetRepo)
-    fetchAllTweetsRouter := router.NewFetchAllTweetsRouter(fetchAllTweetsUsecase)
+    fetchAllTweetsQueryService := query_service.NewFetchAllTweetsQueryService(tweetRepo)
+    fetchAllTweetsRouter := router.NewFetchAllTweetsRouter(fetchAllTweetsQueryService)
 
     createTweetUsecase := usecase.NewCreateTweetUsecase(tweetRepo)
     createTweetRouter := router.NewCreateTweetRouter(createTweetUsecase)

@@ -5,7 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"backend/application/usecase"
+	"backend/application/query_service"
 )
 
 type IFetchAllTweetsRouter interface {
@@ -13,17 +13,17 @@ type IFetchAllTweetsRouter interface {
 }
 
 type fetchAllTweetsRouter struct {
-    uc usecase.IFetchAllTweetsUsecase
+    qs query_service.IFetchAllTweetsQueryService
 }
 
-func NewFetchAllTweetsRouter(uc usecase.IFetchAllTweetsUsecase) IFetchAllTweetsRouter {
-    return &fetchAllTweetsRouter{uc}
+func NewFetchAllTweetsRouter(qs query_service.IFetchAllTweetsQueryService) IFetchAllTweetsRouter {
+    return &fetchAllTweetsRouter{qs}
 }
 
 func (r *fetchAllTweetsRouter) Route() echo.HandlerFunc {
     return func(ctx echo.Context) error {
         userId := ctx.Param("id")
-        tweets, err := r.uc.FetchAllTweets(userId)
+        tweets, err := r.qs.FetchAllTweets(userId)
         if err != nil {
             ctx.Error(err)
         }

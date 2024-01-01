@@ -5,8 +5,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	"backend/application/usecase"
-	"backend/domain/entity"
+	"backend/application/query_service"
 )
 
 type IFetchUserRouter interface {
@@ -14,26 +13,21 @@ type IFetchUserRouter interface {
 }
 
 type fetchUserRouter struct {
-    uc usecase.IFetchUserUsecase
+    qs query_service.IFetchUserQueryService
 }
 
-func NewFetchUserRouter(uc usecase.IFetchUserUsecase) IFetchUserRouter {
-    return &fetchUserRouter{uc}
+func NewFetchUserRouter(qs query_service.IFetchUserQueryService) IFetchUserRouter {
+    return &fetchUserRouter{qs}
 }
 
 func (r *fetchUserRouter) Route() echo.HandlerFunc {
     return func(ctx echo.Context) error {
         userId := ctx.Param("id")
-        user, tweet, err := r.uc.FetchUser(userId)
+        dto, err := r.qs.FetchUser(userId)
         if err != nil {
             ctx.Error(err)
         }
-        type resType struct {
-            user *entity.User
-            tweets []entity.Tweet
-        }
-        res := resType{user: user, tweets: tweet}
-        return ctx.JSON(http.StatusOK, res)
+        return ctx.JSON(http.StatusOK, dto)
     }
 }
 
