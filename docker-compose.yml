@@ -29,7 +29,7 @@ services:
     environment:
       TZ: Asia/Tokyo
     ports:
-      - 3000:3000 
+      - 3000:3000
     networks:
       - twitter
     volumes:
@@ -37,17 +37,30 @@ services:
     profiles: ["dev"]
 
   db:
-    image: mysql:8.0.27
+    container_name: db
+    build: db/
+    hostname: db
     ports:
       - 3306:3306
     environment:
       MYSQL_USER: twitter
       MYSQL_PASSWORD: twitter
       MYSQL_ROOT_PASSWORD: twitter
-      MYSQL_DB: twitter
+      MYSQL_DATABASE: twitter
       TZ: Asia/Tokyo
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql-files
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+
+  adminer:
+    container_name: adminer
+    hostname: adminer
+    image: adminer:4.7.5
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
 
   backend-prd:
     build:
@@ -81,3 +94,4 @@ volumes:
 
 networks:
   twitter:
+
