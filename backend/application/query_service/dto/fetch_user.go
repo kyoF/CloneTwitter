@@ -3,9 +3,9 @@ package dto
 import "backend/domain/entity"
 
 type FetchUserDto struct{
-    UserId string
-    Name string
-    Tweets []entity.Tweet
+    UserId string `json:"userId"`
+    Name string `json:"name"`
+    Tweets []entity.Tweet `json:"tweets"`
 }
 
 func NewFetchUserDto(userId string, name string, tweets []entity.Tweet) *FetchUserDto {

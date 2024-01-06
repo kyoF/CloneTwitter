@@ -26,7 +26,7 @@ func (qs *fetchUserQueryService) FetchUser(userId string) (*dto.FetchUserDto, er
     if err != nil {
         return nil, err
     }
-    tweets, err := qs.tweetRepo.FetchAllUserTweets(user.UserID)
+    tweets, err := qs.tweetRepo.FetchAllUserTweets(user.UserId)
     if err != nil {
         return nil, err
     }
