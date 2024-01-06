@@ -1,18 +1,12 @@
 package entity
 
-import (
-	"time"
-
-	"github.com/google/uuid"
-)
+import "github.com/google/uuid"
 
 type Tweet struct {
-    ID int
-    TweetID uuid.UUID
-    UserID string
-    Text string
-    LikesCount int
-    CreatedAt time.Time
+    TweetID uuid.UUID `json:"tweetId" gorm:"column:tweet_id"`
+    UserID string `json:"userId" gorm:"column:user_id"`
+    Text string `json:"text" gorm:"column:text"`
+    LikesCount int `json:"likesCount" gorm:"column:likes_count"`
 }
 
 func NewTweet(userId string, text string) (*Tweet, error) {
@@ -20,13 +14,11 @@ func NewTweet(userId string, text string) (*Tweet, error) {
     if err != nil {
         return nil, err
     }
-    var now time.Time = time.Now()
     tweet := &Tweet{
         TweetID: tweetId,
         UserID: userId,
         Text: text,
         LikesCount: 0,
-        CreatedAt: now,
     }
     return tweet, nil
 }

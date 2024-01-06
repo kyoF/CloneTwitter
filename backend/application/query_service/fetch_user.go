@@ -1,8 +1,8 @@
 package query_service
 
 import (
+	"backend/application/query_service/dto"
 	"backend/domain/repository"
-    "backend/application/query_service/dto"
 )
 
 type IFetchUserQueryService interface {

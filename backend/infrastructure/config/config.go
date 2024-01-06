@@ -11,12 +11,12 @@ import (
 
 func NewDB() *gorm.DB {
     dsn := fmt.Sprintf(
-        "%s:%s@tcp(%s:%s)/%s?loc=Asia&&2FTokyo&parseTime=True",
-        utils.GetEnv("DB_USER", ""),
-        utils.GetEnv("DB_PASSWORD", ""),
-        utils.GetEnv("DB_HOST", ""),
-        utils.GetEnv("DB_PORT", ""),
-        utils.GetEnv("DB_DBNAME", ""),
+        "%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+        utils.GetEnv("DB_USER", "twitter"),
+        utils.GetEnv("DB_PASSWORD", "twitter"),
+        utils.GetEnv("DB_HOST", "db"),
+        utils.GetEnv("DB_PORT", "3306"),
+        utils.GetEnv("DB_DBNAME", "twitter"),
     )
     db, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{})
     return db
