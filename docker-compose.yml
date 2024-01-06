@@ -51,6 +51,8 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql-files
       - ./db/initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - twitter
 
   adminer:
     container_name: adminer
@@ -61,6 +63,8 @@ services:
       - 8080:8080
     depends_on:
       - db
+    networks:
+      - twitter
 
   backend-prd:
     build:
