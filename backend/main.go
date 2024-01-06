@@ -1,4 +1,4 @@
-package backend
+package main
 
 import (
 	"backend/presentation/router"
