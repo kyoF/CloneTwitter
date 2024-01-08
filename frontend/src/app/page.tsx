@@ -1,25 +1,12 @@
-"use client"
-
-import { useEffect } from "react";
-
-export default function Home({ data }) {
-  useEffect(() => {},[])
+export default function Home() {
   return (
     <>
-      <p>Home</p>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <h1>Home</h1>
+      <h2>HomeHome</h2>
+      <h3>HomeHomeHome</h3>
+      <h4>HomeHomeHomeHome</h4>
+      <h5>HomeHomeHomeHomeHome</h5>
     </>
   );
-};
-
-export async function getServerSideProps() {
-  const endpoint: string = "http://localhost:8888/tweets";
-  const res: Response = await fetch(endpoint);
-  const data = await res.json();
-  return {
-    props: {
-      data,
-    },
-  };
 };
 
