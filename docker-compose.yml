@@ -34,6 +34,7 @@ services:
       - twitter
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     profiles: ["dev"]
 
   db:
