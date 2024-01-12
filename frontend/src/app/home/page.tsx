@@ -1,17 +1,19 @@
-import { Tweet } from '@/components/Tweet'
+import Link from 'next/link';
+import { TweetWindow } from '@/components/TweetWindow';
 import type { TTweet } from '@/types'
 
 export default async function Home() {
-  const res: Response = await fetch(`${process.env.API_URL}/tweets`, { cache: 'no-store' });
+  const res: Response = await fetch(
+    `${process.env.API_URL}/tweets`,
+    { cache: 'no-store' }
+  );
   const tweets: TTweet[] = await res.json();
   return (
     <>
-      <h1>Home</h1>
-      {tweets.map((tweet: TTweet) => (
-        <div key={tweet.tweetId}>
-          <Tweet {...tweet} />
-        </div>
-      ))}
+      <TweetWindow tweets={tweets} />
+      <Link href={'/tweet/create'}>
+        create
+      </Link>
     </>
   );
 };
