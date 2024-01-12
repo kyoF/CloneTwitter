@@ -4,3 +4,10 @@ export type TTweet = {
   text: string;
   likesCount: number;
 }
+
+export type TUser = {
+  userId: string;
+  name: string;
+  tweets: TTweet[];
+}
+
