@@ -1,7 +1,5 @@
 export default async function TweetCreate() {
-  const onSubmit = () => {
-    console.log("submit");
-  }
+  const onSubmit = () => {}
   return (
     <form onSubmit={onSubmit()}>
       <div>tweet</div>
