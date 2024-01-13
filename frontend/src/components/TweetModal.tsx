@@ -1,52 +1,29 @@
-'use client'
+'use client';
 
-import Modal from 'react-modal';
-import { useState } from 'react';
+import { css } from '@/../styled-system/css'
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-
-export const TweetModal = () => {
-  const [modalIsOpen, setIsOpen] = useState<Boolean>(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-  
-  function closeModal() {
-    setIsOpen(false);
-  }
-
+export const Modal = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <hr></hr>
-      <button onClick={openModal}>Open Modal</button>
-      <Modal
-        isOpen={modalIsOpen}
-        onAfterOpen={() => console.log("onAfterOpen")}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <button onClick={closeModal}>close</button>
-        <div>I am a modal</div>
-        <form>
-          <input />
-          <button>tab navigation</button>
-          <button>stays</button>
-          <button>inside</button>
-          <button>the modal</button>
-        </form>
-      </Modal>
-      <hr></hr>
-    </>
-  )
+    <div className={css({
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    })}>
+      <div className={css({
+        zIndex: 2,
+        width: "50%",
+        padding: "1em",
+        background: "#fff",
+      })}>
+        {children}
+      </div>
+    </div>
+  );
 }
+
