@@ -1,10 +1,13 @@
-export default function PhotoModal() {
+'use client';
+
+import { Modal } from '@/components/TweetModal';
+
+export default function TweetCreateModal() {
   console.log("modal");
   return (
-    <div>
-      <div>aaa</div>
-      <div>bbb</div>
-    </div>
+    <Modal>
+      <p>aaa</p>
+    </Modal>
   );
 }
 
