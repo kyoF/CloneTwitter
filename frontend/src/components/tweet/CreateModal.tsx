@@ -2,7 +2,7 @@
 
 import { css } from '@/../styled-system/css'
 
-export const Modal = ({ children }: { children: React.ReactNode }) => {
+export const TweetCreateModal = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={css({
       position: 'fixed',

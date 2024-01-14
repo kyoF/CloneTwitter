@@ -1,7 +1,7 @@
 'use client'
 
 import { TTweet } from "@/types";
-import { TweetCard } from "@/components/TweetCard";
+import { TweetCard } from "@/components/tweet/Card";
 
 type Props = {
   tweets: TTweet[];
