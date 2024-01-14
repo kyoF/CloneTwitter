@@ -1,8 +1,8 @@
 import type { TUser } from '@/types';
-import { TweetWindow } from '@/components/TweetWindow';
-import { TweetButton } from '@/components/TweetButton';
+import { TweetWindow } from '@/components/tweet/Window';
+import { TweetButton } from '@/components/tweet/Button';
 
-export default async function User({ params }: { params: { userId: string }}) {
+export default async function UserPage({ params }: { params: { userId: string }}) {
   const res: Response = await fetch(
     `${process.env.API_URL}/user/${params.userId}`,
     { cache: 'no-store' }

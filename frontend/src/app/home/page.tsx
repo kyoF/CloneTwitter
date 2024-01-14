@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { TweetWindow } from '@/components/TweetWindow';
+import { TweetWindow } from '@/components/tweet/Window';
 import type { TTweet } from '@/types'
 
-export default async function Home() {
+export default async function HomePage() {
   const res: Response = await fetch(
     `${process.env.API_URL}/tweets`,
     { cache: 'no-store' }
@@ -11,9 +11,6 @@ export default async function Home() {
   return (
     <>
       <TweetWindow tweets={tweets} />
-      <Link href={'/tweet/create'}>
-        create
-      </Link>
     </>
   );
 };

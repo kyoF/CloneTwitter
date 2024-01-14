@@ -1,13 +1,12 @@
 'use client';
 
-import { Modal } from '@/components/TweetModal';
+import { TweetCreateModal } from '@/components/tweet/CreateModal';
 
-export default function TweetCreateModal() {
-  console.log("modal");
+export default function TweetCreateModalPage() {
   return (
-    <Modal>
+    <TweetCreateModal>
       <p>aaa</p>
-    </Modal>
+    </TweetCreateModal>
   );
 }
 
