@@ -1,34 +1,39 @@
 package main
 
 import (
-	"backend/presentation/router"
 	"backend/application/query_service"
 	"backend/application/usecase"
 	"backend/infrastructure"
 	"backend/infrastructure/config"
+	"backend/presentation/router"
 )
 
 func main() {
-    db := config.NewDB()
+	db := config.NewDB()
 
-    tweetRepo := infrastructure.NewTweetRepository(db)
-    userRepo := infrastructure.NewUserRepository(db)
+	tweetRepo := infrastructure.NewTweetRepository(db)
+	userRepo := infrastructure.NewUserRepository(db)
 
-    fetchUserQueryService := query_service.NewFetchUserQueryService(userRepo, tweetRepo)
-    fetchUserRouter := router.NewFetchUserRouter(fetchUserQueryService)
+	fetchUserQueryService := query_service.NewFetchUserQueryService(userRepo, tweetRepo)
+	fetchUserRouter := router.NewFetchUserRouter(fetchUserQueryService)
 
-    fetchAllTweetsQueryService := query_service.NewFetchAllTweetsQueryService(tweetRepo)
-    fetchAllTweetsRouter := router.NewFetchAllTweetsRouter(fetchAllTweetsQueryService)
+	fetchAllTweetsQueryService := query_service.NewFetchAllTweetsQueryService(tweetRepo)
+	fetchAllTweetsRouter := router.NewFetchAllTweetsRouter(fetchAllTweetsQueryService)
 
-    createTweetUsecase := usecase.NewCreateTweetUsecase(tweetRepo)
-    createTweetRouter := router.NewCreateTweetRouter(createTweetUsecase)
+	createTweetUsecase := usecase.NewCreateTweetUsecase(tweetRepo)
+	createTweetRouter := router.NewCreateTweetRouter(createTweetUsecase)
 
-    signUpQueryService := usecase.NewSignUpUsecase(userRepo)
-    signUpRouter := router.NewSignUpRouter(signUpQueryService)
+	signUpQueryService := usecase.NewSignUpUsecase(userRepo)
+	signUpRouter := router.NewSignUpRouter(signUpQueryService)
 
-    loginQueryService := query_service.NewLoginQueryService(userRepo)
-    loginRouter := router.NewLoginRouter(loginQueryService)
+	loginQueryService := query_service.NewLoginQueryService(userRepo)
+	loginRouter := router.NewLoginRouter(loginQueryService)
 
-    router.InitRoute(fetchUserRouter, fetchAllTweetsRouter, createTweetRouter, loginRouter, signUpRouter)
+	router.InitRoute(
+		fetchUserRouter,
+		fetchAllTweetsRouter,
+		createTweetRouter,
+		loginRouter,
+		signUpRouter,
+	)
 }
-
