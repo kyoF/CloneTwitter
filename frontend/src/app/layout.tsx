@@ -6,6 +6,8 @@ import './global.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
+import { SessionProvider } from 'next-auth/react';
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
