@@ -24,6 +24,12 @@ func (i *userInfra) FetchUser(userId string) (*entity.User, error) {
 	return user, nil
 }
 
+func (i *userInfra) Login(email string, password string) error {
+    var user *entity.User
+    err := i.db.Where("email = ?", email).Where("pass = ?", password).First(&user).Error
+    return err
+}
+
 func (i *userInfra) SignUp(userId string, name string, email string, password string) error {
 	user, err := entity.NewUser(userId, name, email, password)
 	if err != nil {
