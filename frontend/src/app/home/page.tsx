@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { TweetWindow } from '@/components/tweet/Window';
 import type { TTweet } from '@/types'
 
