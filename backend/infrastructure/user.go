@@ -17,17 +17,14 @@ func NewUserRepository(db *gorm.DB) repository.IUserRepository {
 
 func (i *userInfra) FetchUser(userId string) (*entity.User, error) {
 	var user *entity.User
-	err := i.db.Where("user_id = ?", userId).First(&user).Error
-	if err != nil {
-		return nil, err
-	}
-	return user, nil
+	err := i.db.Where("'user_id' = ?", userId).First(&user).Error
+	return user, err
 }
 
 func (i *userInfra) Login(email string, password string) error {
-    var user *entity.User
-    err := i.db.Where("email = ?", email).Where("pass = ?", password).First(&user).Error
-    return err
+	var user *entity.User
+	err := i.db.Where("'email' = ? and 'password' = ?", email, password).First(&user).Error
+	return err
 }
 
 func (i *userInfra) SignUp(userId string, name string, email string, password string) error {
@@ -36,7 +33,8 @@ func (i *userInfra) SignUp(userId string, name string, email string, password st
 		return err
 	}
 	f := func(tx *gorm.DB) error {
-        return tx.Create(&user).Error
+		return tx.Create(&user).Error
 	}
-    return i.db.Transaction(f)
+	err = i.db.Transaction(f)
+	return err
 }
