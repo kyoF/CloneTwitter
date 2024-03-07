@@ -8,28 +8,27 @@ import (
 )
 
 type ISignUpRouter interface {
-    Route() echo.HandlerFunc
+	Route() echo.HandlerFunc
 }
 
 type signUpRouter struct {
-    uc usecase.ISignUpUsecase
+	uc usecase.ISignUpUsecase
 }
 
 func NewSignUpRouter(uc usecase.ISignUpUsecase) ISignUpRouter {
-    return &signUpRouter{uc}
+	return &signUpRouter{uc}
 }
 
 func (r *signUpRouter) Route() echo.HandlerFunc {
-    return func(ctx echo.Context) error {
-        userId := ctx.Param("userId")
-        name := ctx.Param("name")
-        email := ctx.Param("email")
-        password := ctx.Param("password")
-        err := r.uc.SignUp(userId, name, email, password)
-        if err != nil {
-            ctx.Error(err)
-        }
-        return ctx.JSON(http.StatusOK, nil)
-    }
+	return func(ctx echo.Context) error {
+		userId := ctx.Param("userId")
+		name := ctx.Param("name")
+		email := ctx.Param("email")
+		password := ctx.Param("password")
+		err := r.uc.SignUp(userId, name, email, password)
+		if err != nil {
+			ctx.Error(err)
+		}
+		return ctx.JSON(http.StatusOK, nil)
+	}
 }
-
