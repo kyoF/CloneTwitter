@@ -12,7 +12,7 @@ services:
     ports:
       - 8888:8888
     depends_on:
-      - db
+      - database
     networks:
       - twitter
     volumes:
@@ -36,10 +36,10 @@ services:
       - /app/node_modules
     profiles: ["dev"]
 
-  db:
-    container_name: db
-    build: db/
-    hostname: db
+  database:
+    container_name: database
+    build: database/
+    hostname: database
     ports:
       - 3306:3306
     environment:
@@ -50,7 +50,7 @@ services:
       TZ: Asia/Tokyo
     volumes:
       - mysql-data:/var/lib/mysql-files
-      - ./db/initdb.d:/docker-entrypoint-initdb.d
+      - ./database/initdb.d:/docker-entrypoint-initdb.d
     networks:
       - twitter
 
@@ -62,7 +62,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - db
+      - database
     networks:
       - twitter
 
@@ -75,7 +75,7 @@ services:
     ports:
       - 8888:8888
     depends_on:
-      - db
+      - database
     networks:
       - twitter
     profiles: ["prd"]

@@ -1,4 +1,4 @@
-INSERT INTO users (user_id, name, mail, pass)
+INSERT INTO users (user_id, name, email, password)
 VALUES
   ('fujiki', 'fujiki', 'fujiki@twitter.com', 'fujikipass'),
   ('akazawa', 'akazawa', 'akazawa@twitter.com', 'akazawapass'),
