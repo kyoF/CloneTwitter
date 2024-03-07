@@ -21,10 +21,10 @@ func (i *userInfra) FetchUser(userId string) (*entity.User, error) {
 	return user, err
 }
 
-func (i *userInfra) Login(email string, password string) error {
+func (i *userInfra) Login(email string, password string) (*entity.User, error) {
 	var user *entity.User
 	err := i.db.Where("'email' = ? and 'password' = ?", email, password).First(&user).Error
-	return err
+	return user, err
 }
 
 func (i *userInfra) SignUp(userId string, name string, email string, password string) error {
