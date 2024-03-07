@@ -23,8 +23,8 @@ func main() {
 	createTweetUsecase := usecase.NewCreateTweetUsecase(tweetRepo)
 	createTweetRouter := router.NewCreateTweetRouter(createTweetUsecase)
 
-	signUpQueryService := usecase.NewSignUpUsecase(userRepo)
-	signUpRouter := router.NewSignUpRouter(signUpQueryService)
+	signUpUsecase := usecase.NewSignUpUsecase(userRepo)
+	signUpRouter := router.NewSignUpRouter(signUpUsecase)
 
 	loginQueryService := query_service.NewLoginQueryService(userRepo)
 	loginRouter := router.NewLoginRouter(loginQueryService)
