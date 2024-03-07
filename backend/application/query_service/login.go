@@ -5,20 +5,18 @@ import (
 )
 
 type ILoginQueryService interface {
-    Login(email string, password string) error
+	Login(email string, password string) error
 }
 
 type loginQueryService struct {
-    userRepo repository.IUserRepository
+	userRepo repository.IUserRepository
 }
 
 func NewLoginQueryService(userRepo repository.IUserRepository) ILoginQueryService {
-    return &loginQueryService{
-        userRepo,
-    }
+	return &loginQueryService{userRepo}
 }
 
 func (qs *loginQueryService) Login(email string, password string) error {
-    return qs.userRepo.Login(email, password)
+	err := qs.userRepo.Login(email, password)
+	return err
 }
-
