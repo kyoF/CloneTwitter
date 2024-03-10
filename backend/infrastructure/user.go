@@ -15,26 +15,8 @@ func NewUserRepository(db *gorm.DB) repository.IUserRepository {
 	return &userInfra{db}
 }
 
-func (i *userInfra) FetchUser(userId string) (*entity.User, error) {
-	var user *entity.User
-	err := i.db.Where("'user_id' = ?", userId).First(&user).Error
+func (i *userInfra) Fetch(userId string) (entity.User, error) {
+	var user entity.User
+	err := i.db.Model(&entity.User{}).Select("user_id, name, profile").Where("'user_id' = ?", userId).First(&user).Error
 	return user, err
-}
-
-func (i *userInfra) Login(email string, password string) (*entity.User, error) {
-	var user *entity.User
-	err := i.db.Where("'email' = ? and 'password' = ?", email, password).First(&user).Error
-	return user, err
-}
-
-func (i *userInfra) SignUp(userId string, name string, email string, password string) error {
-	user, err := entity.NewUser(userId, name, email, password)
-	if err != nil {
-		return err
-	}
-	f := func(tx *gorm.DB) error {
-		return tx.Create(&user).Error
-	}
-	err = i.db.Transaction(f)
-	return err
 }
