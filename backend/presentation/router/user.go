@@ -21,7 +21,7 @@ func NewUserRouter(qs query_service.IUserQueryService) IUserRouter {
 
 func (u *userRouter) Fetch() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		userId := ctx.Param("id")
+		userId := ctx.Param("userId")
 		dto, err := u.qs.Fetch(userId)
 		if err != nil {
 			ctx.Error(err)
