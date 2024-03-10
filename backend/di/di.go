@@ -17,13 +17,14 @@ func Auth(db *gorm.DB) router.IAuthRouter {
 
 func User(db *gorm.DB) router.IUserRouter {
     userRepo := infrastructure.NewUserRepository(db)
-    userQueryService := query_service.NewUserQueryService(userRepo)
+    tweetRepo := infrastructure.NewTweetRepository(db)
+    userQueryService := query_service.NewUserQueryService(userRepo, tweetRepo)
     return router.NewUserRouter(userQueryService)
 }
 
 func Tweet(db *gorm.DB) router.ITweetRouter {
 	tweetRepo := infrastructure.NewTweetRepository(db)
-	queryService := query_service.NewTweetUsecase(tweetRepo)
+	queryService := query_service.NewTweetQueryService(tweetRepo)
 	usecase := usecase.NewTweetUsecase(tweetRepo)
 	return router.NewTweetRouter(queryService, usecase)
 }

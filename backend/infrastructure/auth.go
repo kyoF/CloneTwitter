@@ -11,7 +11,7 @@ type authInfra struct {
     db *gorm.DB
 }
 
-func NewAuthInfra(db *gorm.DB, authRepo repository.IAuthRepository) repository.IAuthRepository {
+func NewAuthInfra(db *gorm.DB) repository.IAuthRepository {
 	return &authInfra{db: db}
 }
 

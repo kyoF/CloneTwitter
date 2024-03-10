@@ -20,7 +20,7 @@ func NewAuthRouter(uc usecase.IAuthUsecase) IAuthRouter {
     return &authRouter{uc}
 }
 
-func (r *authRouter) SignUP() echo.HandlerFunc {
+func (r *authRouter) SignUp() echo.HandlerFunc {
     return func(ctx echo.Context) error {
 		userId := ctx.Param("userId")
 		email := ctx.Param("email")
