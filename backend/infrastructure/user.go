@@ -17,6 +17,6 @@ func NewUserRepository(db *gorm.DB) repository.IUserRepository {
 
 func (i *userInfra) Fetch(userId string) (entity.User, error) {
 	var user entity.User
-	err := i.db.Model(&entity.User{}).Select("user_id, name, profile").Where("'user_id' = ?", userId).First(&user).Error
+	err := i.db.Model(&entity.User{}).Select("user_id, name, profile").Where("user_id = ?", userId).First(&user).Error
 	return user, err
 }
