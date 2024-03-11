@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { HeartIcon, PersonIcon } from '@radix-ui/react-icons';
-import { css } from '@/../styled-system/css';
 
 import type { TTweet } from '@/types';
 
@@ -24,18 +23,13 @@ export const TweetCard = ({...tweet}: TTweet) => {
 
   return(
     <>
-      <PersonIcon className={css({
-        width: "5%",
-        height: "5%",
-      })} />
+      <PersonIcon/>
       <Link href={`/user/${userId}`}>
         @{userId}
       </Link>
       <div>{text}</div>
       <button onClick={toggleLike}>
-        <div className={css({
-          color: isLike ? "red" : "black",
-        })}>
+        <div>
           <HeartIcon />
         </div>
       </button>
