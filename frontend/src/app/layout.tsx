@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import './global.css'
-
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import Sidebar from '@/components/Sidebar'
+
+import { KumaRegistry } from "@kuma-ui/next-plugin/registry"
 
 import { SessionProvider } from 'next-auth/react';
+import Window from '@/components/Window'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,12 +25,14 @@ export default function RootLayout({
   modal: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body className={inter.className}>
-        <Header />
-        {children}
-        {modal}
-        <Footer />
+        <KumaRegistry>
+          <Window>
+            {children}
+          </Window>
+          {modal}
+        </KumaRegistry>
       </body>
     </html>
   )
