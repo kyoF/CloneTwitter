@@ -12,7 +12,8 @@ services:
     ports:
       - 8888:8888
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     networks:
       - twitter
     volumes:
@@ -53,6 +54,8 @@ services:
       - ./database/initdb.d:/docker-entrypoint-initdb.d
     networks:
       - twitter
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $MYSQL_USER -p $MYSQL_PASSWORD
 
   adminer:
     container_name: adminer
