@@ -1,14 +1,16 @@
-package router
+package presentation
 
 import (
+	"backend/presentation/router"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func InitRoute(
-	authRouter IAuthRouter,
-	userRouter IUserRouter,
-	tweetRouter ITweetRouter,
+	authRouter router.IAuthRouter,
+	userRouter router.IUserRouter,
+	tweetRouter router.ITweetRouter,
 ) {
 	e := echo.New()
 
