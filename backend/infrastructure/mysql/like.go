@@ -3,6 +3,7 @@ package mysql
 import (
 	"backend/domain/entity"
 	"backend/domain/repository"
+	"errors"
 
 	"gorm.io/gorm"
 )
@@ -29,20 +30,14 @@ func (i *likeInfra) Create(userId string, tweetId string) error {
 
 func (i *likeInfra) Delete(userId string, tweetId string) error {
 	err := i.db.Transaction(func(tx *gorm.DB) error {
-		return i.db.Where("user_id = ? AND user_id = ?", userId, tweetId).Delete(&entity.Like{}).Error
+		return i.db.Where("user_id = ? AND tweet_id = ?", userId, tweetId).Delete(&entity.Like{}).Error
 	})
 	return err
 }
 
-func (i *likeInfra) IsExist(userId string, tweetId string) (bool, error) {
-	var like entity.Like
-	result := i.db.Where("user_id = ? AND user_id = ?", userId, tweetId).First(&like)
-	if result.Error != nil {
-		return false, result.Error
-	}
-
-	if result.RowsAffected == 0 {
-		return false, nil
-	}
-	return true, nil
+func (i *likeInfra) Find(userId string, tweetId string) *entity.Like {
+	var like *entity.Like
+    // gorm returns the state of no record as an ERROR
+	_ = i.db.Where("user_id = ? AND tweet_id = ?", userId, tweetId).First(&like)
+	return like
 }
