@@ -11,6 +11,7 @@ func InitRoute(
 	authRouter router.IAuthRouter,
 	userRouter router.IUserRouter,
 	tweetRouter router.ITweetRouter,
+    likeRouter router.ILikeRouter,
 ) {
 	e := echo.New()
 
@@ -27,6 +28,8 @@ func InitRoute(
     a.GET("/tweets", tweetRouter.FetchAll())
     a.GET("/tweet/:tweetId", tweetRouter.Fetch())
     a.POST("/tweet/create", tweetRouter.Create())
+
+    a.POST("/tweet/like", likeRouter.ToggleLike())
 
 	e.Logger.Fatal(e.Start(":8888"))
 }
