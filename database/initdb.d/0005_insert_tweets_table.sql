@@ -1,6 +1,6 @@
 INSERT INTO tweets (tweet_id, user_id, text)
 VALUES
-  (UUID(), 'fujiki', 'my name is fujiki'),
-  (UUID(), 'akazawa', 'my name is akazawa'),
-  (UUID(), 'mori', 'my name is mori');
+  ('fujiki1', 'fujiki', 'my name is fujiki'),
+  ('akazawa1', 'akazawa', 'my name is akazawa'),
+  ('mori1', 'mori', 'my name is mori');
 

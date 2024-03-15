@@ -1,6 +1,8 @@
-INSERT INTO tweets (tweet_id, user_id, text)
+INSERT INTO likes (user_id, tweet_id, created_at)
 VALUES
-  (UUID(), 'fujiki', 'my name is fujiki'),
-  (UUID(), 'akazawa', 'my name is akazawa'),
-  (UUID(), 'mori', 'my name is mori');
+  ('fujiki', 'akazawa1'),
+  ('mori', 'akazawa1'),
+  ('fujiki', 'mori1');
+  ('akazawa', 'mori1'),
+  ('mori', 'fujiki1');
 
