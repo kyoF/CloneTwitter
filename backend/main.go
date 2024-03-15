@@ -10,8 +10,9 @@ func main() {
 	db := config.NewDB()
 
 	presentation.InitRoute(
-        di.Auth(db),
-        di.User(db),
-        di.Tweet(db),
+		di.Auth(db),
+		di.User(db),
+		di.Tweet(db),
+		di.Like(db),
 	)
 }
