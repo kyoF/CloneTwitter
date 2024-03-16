@@ -29,9 +29,9 @@ func (i *tweetInfra) FetchAllByUserId(userId string) ([]entity.Tweet, error) {
 }
 
 func (i *tweetInfra) Fetch(tweetId string) (entity.Tweet, error) {
-	var tweets entity.Tweet
-	err := i.db.Where("tweet_id = ?", tweetId).Find(&tweets).Error
-	return tweets, err
+	var tweet entity.Tweet
+	err := i.db.Where("tweet_id = ?", tweetId).Find(&tweet).Error
+	return tweet, err
 }
 
 func (i *tweetInfra) Create(userId string, text string) (*entity.Tweet, error) {
