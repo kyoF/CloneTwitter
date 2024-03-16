@@ -1,7 +1,6 @@
 package di
 
 import (
-	"backend/application/query_service"
 	"backend/application/usecase"
 	"backend/infrastructure/mysql"
 	"backend/presentation/router"
@@ -11,7 +10,6 @@ import (
 
 func Tweet(db *gorm.DB) router.ITweetRouter {
 	tweetRepo := mysql.NewTweetRepository(db)
-	queryService := query_service.NewTweetQueryService(tweetRepo)
 	usecase := usecase.NewTweetUsecase(tweetRepo)
-	return router.NewTweetRouter(queryService, usecase)
+	return router.NewTweetRouter(usecase)
 }

@@ -6,7 +6,7 @@ import (
 )
 
 type IUserQueryService interface {
-    Fetch(userId string) (*dto.FetchUserDto, error)
+    Fetch(userId string) (*dto.UserFetchDto, error)
 }
 
 type userQueryService struct{
@@ -21,7 +21,7 @@ func NewUserQueryService(userRepo repository.IUserRepository, tweetRepo reposito
     }
 }
 
-func (qs *userQueryService) Fetch(userId string) (*dto.FetchUserDto, error) {
+func (qs *userQueryService) Fetch(userId string) (*dto.UserFetchDto, error) {
     user, err := qs.userRepo.Fetch(userId)
     if err != nil {
         return nil, err
@@ -30,7 +30,7 @@ func (qs *userQueryService) Fetch(userId string) (*dto.FetchUserDto, error) {
     if err != nil {
         return nil, err
     }
-    dto := dto.NewFetchUserDto(
+    dto := dto.NewUserFetchDto(
         userId,
         user.Name,
         tweets,
