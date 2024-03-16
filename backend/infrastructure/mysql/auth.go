@@ -8,7 +8,7 @@ import (
 )
 
 type authInfra struct {
-    db *gorm.DB
+	db *gorm.DB
 }
 
 func NewAuthInfra(db *gorm.DB) repository.IAuthRepository {
@@ -22,10 +22,13 @@ func (i *authInfra) Login(userId string, email string, password string) error {
 }
 
 func (i *authInfra) SignUp(userId string, email string, password string) error {
-	user := entity.NewAuth(userId, email, password)
-	f := func(tx *gorm.DB) error {
-		return tx.Create(&user).Error
+	user := entity.Auth{
+		UserId:   userId,
+		Email:    email,
+		Password: password,
 	}
-    err := i.db.Transaction(f)
+	err := i.db.Transaction(func(tx *gorm.DB) error {
+		return tx.Create(&user).Error
+	})
 	return err
 }
