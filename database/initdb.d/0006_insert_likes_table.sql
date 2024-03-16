@@ -1,4 +1,4 @@
-INSERT INTO likes (user_id, tweet_id, created_at)
+INSERT INTO likes (user_id, tweet_id)
 VALUES
   ('fujiki', 'akazawa1'),
   ('mori', 'akazawa1'),
