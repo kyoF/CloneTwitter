@@ -3,7 +3,6 @@ package mysql
 import (
 	"backend/domain/entity"
 	"backend/domain/repository"
-	"errors"
 
 	"gorm.io/gorm"
 )
