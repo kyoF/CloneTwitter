@@ -23,10 +23,10 @@ func (r *likeRouter) ToggleLike() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		userId := ctx.Param("userId")
 		tweetId := ctx.Param("tweetId")
-		err := r.uc.ToggleLike(userId, tweetId)
+		likesCount, err := r.uc.ToggleLike(userId, tweetId)
 		if err != nil {
 			ctx.Error(err)
 		}
-		return ctx.JSON(http.StatusOK, nil)
+		return ctx.JSON(http.StatusOK, likesCount)
 	}
 }

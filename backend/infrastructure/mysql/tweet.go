@@ -23,7 +23,7 @@ func (i *tweetInfra) FetchAll() ([]entity.Tweet, error) {
 }
 
 func (i *tweetInfra) FetchAllByUserId(userId string) ([]entity.Tweet, error) {
-    var tweets []entity.Tweet
+	var tweets []entity.Tweet
 	err := i.db.Where("user_id = ?", userId).Find(&tweets).Error
 	return tweets, err
 }
@@ -44,8 +44,17 @@ func (i *tweetInfra) Create(userId string, text string) (*entity.Tweet, error) {
 			Text:       text,
 			LikesCount: 0,
 		}
-		err := i.db.Create(&tweet).Error
+		err := tx.Create(&tweet).Error
 		return err
 	})
 	return tweet, err
+}
+
+func (i *tweetInfra) Update(tweet entity.Tweet) error {
+	err := i.db.Transaction(func(tx *gorm.DB) error {
+		return tx.Where("tweet_id = ?", tweet.TweetId).Updates(&entity.Tweet{
+			LikesCount: tweet.LikesCount,
+		}).Error
+	})
+	return err
 }

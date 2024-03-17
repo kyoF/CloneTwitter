@@ -6,3 +6,7 @@ type Tweet struct {
 	Text       string `json:"text" gorm:"column:text"`
 	LikesCount int    `json:"likesCount" gorm:"column:likes_count"`
 }
+
+func (t *Tweet) UpdateCount(likesCount int) {
+    t.LikesCount = likesCount
+}

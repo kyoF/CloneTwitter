@@ -7,4 +7,5 @@ type ITweetRepository interface {
 	FetchAllByUserId(userId string) ([]entity.Tweet, error)
 	Fetch(tweetId string) (entity.Tweet, error)
 	Create(userId string, text string) (*entity.Tweet, error)
+    Update(tweet entity.Tweet) error
 }

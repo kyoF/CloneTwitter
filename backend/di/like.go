@@ -10,6 +10,7 @@ import (
 
 func Like(db *gorm.DB) router.ILikeRouter {
 	likeRepo := mysql.NewLikeInfra(db)
-	likeUsecase := usecase.NewLikeUsecase(likeRepo)
+    tweetRepo := mysql.NewTweetRepository(db)
+	likeUsecase := usecase.NewLikeUsecase(likeRepo, tweetRepo)
 	return router.NewLikeRouter(likeUsecase)
 }

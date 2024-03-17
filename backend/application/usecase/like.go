@@ -6,22 +6,44 @@ import (
 )
 
 type ILikeUsecase interface {
-	ToggleLike(userId string, tweetId string) error
+	ToggleLike(userId string, tweetId string) (int, error)
 }
 
 type likeUsecase struct {
 	likeRepo repository.ILikeRepository
+    tweetRepo repository.ITweetRepository
 }
 
-func NewLikeUsecase(likeRepo repository.ILikeRepository) ILikeUsecase {
-	return &likeUsecase{likeRepo}
+func NewLikeUsecase(likeRepo repository.ILikeRepository, tweetRepo repository.ITweetRepository) ILikeUsecase {
+	return &likeUsecase{likeRepo, tweetRepo}
 }
 
-func (uc *likeUsecase) ToggleLike(userId string, tweetId string) error {
+func (uc *likeUsecase) ToggleLike(userId string, tweetId string) (int, error) {
+    var err error
+
     likeService := service.NewLikeService(uc.likeRepo)
     if likeService.IsExist(userId, tweetId) {
-        return uc.likeRepo.Delete(userId, tweetId)
+        err = uc.likeRepo.Delete(userId, tweetId)
     } else {
-        return uc.likeRepo.Create(userId, tweetId)
+        err = uc.likeRepo.Create(userId, tweetId)
     }
+    if err != nil {
+        return -1, err
+    }
+
+    likes, err := uc.likeRepo.FetchesByTweetId(tweetId)
+    if err != nil {
+        return -1, err
+    }
+    likesCount := len(likes)
+
+    tweet, err := uc.tweetRepo.Fetch(tweetId)
+    if err !=nil {
+        return -1, err
+    }
+
+    tweet.UpdateCount(likesCount)
+    err = uc.tweetRepo.Update(tweet)
+
+    return likesCount, err
 }
