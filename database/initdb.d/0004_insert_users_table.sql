@@ -1,6 +1,6 @@
-INSERT INTO users (user_id, name, email, password)
+INSERT INTO users (user_id, name, profile, email, password)
 VALUES
-  ('fujiki', 'fujiki', 'fujiki@twitter.com', 'fujikipass'),
-  ('akazawa', 'akazawa', 'akazawa@twitter.com', 'akazawapass'),
-  ('mori', 'mori', 'mori@twitter.com', 'moripass');
+  ('fujiki', 'fujiki', 'I am fujiki.', 'fujiki@twitter.com', 'fujikipass'),
+  ('akazawa', 'akazawa', 'I am akazawa.', 'akazawa@twitter.com', 'akazawapass'),
+  ('mori', 'mori', 'I am mori.', 'mori@twitter.com', 'moripass');
 
