@@ -21,8 +21,12 @@ func NewLikeRouter(uc usecase.ILikeUsecase) ILikeRouter {
 
 func (r *likeRouter) ToggleLike() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		userId := ctx.Param("userId")
-		tweetId := ctx.Param("tweetId")
+        body := make(map[string]string)
+        if err := ctx.Bind(&body); err != nil {
+            ctx.Error(err)
+        }
+		userId := body["userId"]
+		tweetId := body["tweetId"]
 		likesCount, err := r.uc.ToggleLike(userId, tweetId)
 		if err != nil {
 			ctx.Error(err)
