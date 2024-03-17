@@ -1,13 +1,14 @@
 export type TTweet = {
-  tweetId: string;
   userId: string;
-  text: string;
+  name: string
+  tweetId: string;
   likesCount: number;
+  text: string;
 }
 
 export type TUser = {
   userId: string;
   name: string;
-  tweets: TTweet[];
+  profile: string;
 }
 

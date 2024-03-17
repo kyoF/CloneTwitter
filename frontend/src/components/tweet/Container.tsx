@@ -3,11 +3,7 @@
 import { TTweet } from "@/types";
 import { TweetCard } from "@/components/tweet/Card";
 
-type Props = {
-  tweets: TTweet[];
-}
-
-export const TweetWindow = ({ tweets }: Props) => {
+export const TweetContainer = ({ tweets }: { tweets: TTweet[] }) => {
   return (
     <>
       {tweets.map((tweet: TTweet) => (

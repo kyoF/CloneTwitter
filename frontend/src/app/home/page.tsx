@@ -1,4 +1,4 @@
-import { TweetWindow } from '@/components/tweet/Window';
+import { TweetContainer } from '@/components/tweet/Container';
 import type { TTweet } from '@/types'
 
 export default async function HomePage() {
@@ -9,7 +9,7 @@ export default async function HomePage() {
   const tweets: TTweet[] = await res.json();
   return (
     <>
-      <TweetWindow tweets={tweets} />
+      <TweetContainer tweets={tweets} />
     </>
   );
 };
