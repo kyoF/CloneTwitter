@@ -58,8 +58,12 @@ func (r *tweetRouter) Fetch() echo.HandlerFunc {
 
 func (r *tweetRouter) Create() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-        userId := ctx.Param("userId")
-        text := ctx.Param("text")
+        body := make(map[string]string)
+        if err := ctx.Bind(&body); err != nil {
+            ctx.Error(err)
+        }
+        userId := body["userId"]
+        text := body["text"]
 		tweet, err := r.uc.Create(userId, text)
 		if err != nil {
 			ctx.Error(err)
