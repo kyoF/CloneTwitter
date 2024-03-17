@@ -1,7 +1,7 @@
 package di
 
 import (
-	"backend/application/query_service"
+	"backend/application/usecase"
 	"backend/infrastructure/mysql"
 	"backend/presentation/router"
 
@@ -10,7 +10,6 @@ import (
 
 func User(db *gorm.DB) router.IUserRouter {
 	userRepo := mysql.NewUserRepository(db)
-	tweetRepo := mysql.NewTweetRepository(db)
-	userQueryService := query_service.NewUserQueryService(userRepo, tweetRepo)
-	return router.NewUserRouter(userQueryService)
+    usecase := usecase.NewUserUsecase(userRepo)
+	return router.NewUserRouter(usecase)
 }

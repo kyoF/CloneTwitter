@@ -1,7 +1,7 @@
 package router
 
 import (
-	"backend/application/query_service"
+	"backend/application/usecase"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -12,20 +12,20 @@ type IUserRouter interface {
 }
 
 type userRouter struct {
-	qs query_service.IUserQueryService
+	uc usecase.IUserUsecase
 }
 
-func NewUserRouter(qs query_service.IUserQueryService) IUserRouter {
-	return &userRouter{qs}
+func NewUserRouter(uc usecase.IUserUsecase) IUserRouter {
+	return &userRouter{uc}
 }
 
 func (u *userRouter) Fetch() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		userId := ctx.Param("userId")
-		dto, err := u.qs.Fetch(userId)
+		user, err := u.uc.Fetch(userId)
 		if err != nil {
 			ctx.Error(err)
 		}
-		return ctx.JSON(http.StatusOK, dto)
+		return ctx.JSON(http.StatusOK, &user)
 	}
 }
