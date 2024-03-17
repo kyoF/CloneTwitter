@@ -1,6 +1,7 @@
 package router
 
 import (
+	"backend/application/query_service"
 	"backend/application/usecase"
 	"net/http"
 
@@ -9,23 +10,34 @@ import (
 
 type ITweetRouter interface {
 	FetchAll() echo.HandlerFunc
+    FetchAllByUserId() echo.HandlerFunc
 	Fetch() echo.HandlerFunc
 	Create() echo.HandlerFunc
 }
 
 type tweetRouter struct {
 	uc usecase.ITweetUsecase
+    qs query_service.IFetchTweetCardQueryService
 }
 
-func NewTweetRouter(uc usecase.ITweetUsecase) ITweetRouter {
-	return &tweetRouter{
-		uc: uc,
-	}
+func NewTweetRouter(uc usecase.ITweetUsecase, qs query_service.IFetchTweetCardQueryService) ITweetRouter {
+	return &tweetRouter{uc, qs}
 }
 
 func (r *tweetRouter) FetchAll() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
 		tweets, err := r.uc.FetchAll()
+		if err != nil {
+			ctx.Error(err)
+		}
+		return ctx.JSON(http.StatusOK, tweets)
+	}
+}
+
+func (r *tweetRouter) FetchAllByUserId() echo.HandlerFunc {
+    return func(ctx echo.Context) error {
+        userId := ctx.Param("userId")
+		tweets, err := r.qs.FetchAllByUserId(userId)
 		if err != nil {
 			ctx.Error(err)
 		}

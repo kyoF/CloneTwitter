@@ -24,6 +24,7 @@ func InitRoute(
 	a.POST("/login", authRouter.Login())
 
     a.GET("/user/:userId", userRouter.Fetch())
+    a.GET("/user/:userId/tweets", tweetRouter.FetchAllByUserId())
 
     a.GET("/tweets", tweetRouter.FetchAll())
     a.GET("/tweet/:tweetId", tweetRouter.Fetch())

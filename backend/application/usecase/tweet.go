@@ -8,6 +8,7 @@ import (
 type ITweetUsecase interface {
 	Create(userId string, text string) (*entity.Tweet, error)
     FetchAll() ([]entity.Tweet, error)
+    FetchAllByUserId(userId string) ([]entity.Tweet, error)
     Fetch(tweetId string) (entity.Tweet, error)
 }
 
@@ -28,6 +29,11 @@ func (uc *tweetUsecase) Create(userId string, text string) (*entity.Tweet, error
 
 func (uc *tweetUsecase) FetchAll() ([]entity.Tweet, error) {
     tweets, err := uc.tweetRepo.FetchAll()
+    return tweets, err
+}
+
+func (uc *tweetUsecase) FetchAllByUserId(userId string) ([]entity.Tweet, error) {
+    tweets, err := uc.tweetRepo.FetchAllByUserId(userId)
     return tweets, err
 }
 
