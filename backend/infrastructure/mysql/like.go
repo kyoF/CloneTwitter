@@ -41,14 +41,14 @@ func (i *likeInfra) Find(userId string, tweetId string) *entity.Like {
 	return like
 }
 
-func (i *likeInfra) FetchesByUserId(userId string) ([]entity.Like, error) {
-    var likes []entity.Like
+func (i *likeInfra) FetchesByUserId(userId string) ([]*entity.Like, error) {
+    var likes []*entity.Like
     err := i.db.Where("user_id = ?", userId).Find(likes).Error
     return likes, err
 }
 
-func (i *likeInfra) FetchesByTweetId(tweetId string) ([]entity.Like, error) {
-    var likes []entity.Like
+func (i *likeInfra) FetchAllByTweetId(tweetId string) ([]*entity.Like, error) {
+    var likes []*entity.Like
     err := i.db.Where("tweet_id = ?", tweetId).Find(likes).Error
     return likes, err
 }

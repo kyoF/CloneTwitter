@@ -7,26 +7,44 @@ import { CiUser, CiHeart } from "react-icons/ci";
 import type { TTweet } from '@/types';
 
 export const TweetCard = ({ ...tweet }: TTweet) => {
-  const { userId, text, likesCount } = tweet;
+  const { userId, name, tweetId, text, likesCount } = tweet;
 
   const [like, setLike] = useState<number>(likesCount);
   const [isLike, setIsLike] = useState<Boolean>(false);
 
-  const toggleLike = () => {
-    if (isLike) {
-      setLike(like - 1);
-    } else {
-      setLike(like + 1);
+  const toggleLike = async (e) => {
+    e.preventDefault()
+
+    try {
+      const res: Response = await fetch('/api/like', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: 'fujiki', tweetId: tweetId })
+      });
+
+      if (!res.ok) {
+        throw new Error(`API request failed with status ${res.status}`);
+      }
+
+      const data = await res.json()
+      setLike(data.likesCount);
+      setIsLike(!isLike);
+    } catch (error) {
+      console.error('Error submitting tweet:', error);
     }
-    setIsLike(!isLike)
-  }
+  };
 
   return (
     <>
       <CiUser />
-      <Link href={`/user/${userId}`}>
-        @{userId}
-      </Link>
+      <div>
+        <Link href={`/user/${userId}`}>
+          @{userId}
+        </Link>
+        {name}
+      </div>
       <div>{text}</div>
       <button onClick={toggleLike}>
         <div>
