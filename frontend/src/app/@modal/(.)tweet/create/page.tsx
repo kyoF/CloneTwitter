@@ -9,25 +9,34 @@ export default function TweetCreateModalPage() {
   const [tweetText, setTweetText] = useState<string>('');
   const [characterCount, setCharacterCount] = useState<integer>(0);
 
-  const handleTweetTextChange = (e) => {
+  const textChange = (e) => {
     const text = e.target.value;
     setTweetText(text);
     setCharacterCount(text.length);
   };
 
-  const handleTweetSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault()
 
-    const res: Response = await fetch('/api/tweet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ userId: 'fujiki', text: tweetText })
-    })
-    setTweetText('');
-    setCharacterCount(0);
-    router.back()
+    try {
+      const res: Response = await fetch('/api/tweet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: 'fujiki', text: tweetText })
+      });
+
+      if (!res.ok) {
+        throw new Error(`API request failed with status ${res.status}`);
+      }
+
+      setTweetText('');
+      setCharacterCount(0);
+      router.back();
+    } catch (error) {
+      console.error('Error submitting tweet:', error);
+    }
   };
 
   const back = () => {
@@ -39,13 +48,13 @@ export default function TweetCreateModalPage() {
       <textarea
         placeholder="What's happeing?"
         value={tweetText}
-        onChange={handleTweetTextChange}
+        onChange={textChange}
         maxLength={280}
       />
       <div>
         <span>{characterCount}/280</span>
         <button
-          onClick={handleTweetSubmit}
+          onClick={submit}
         >
           tweet
         </button>
