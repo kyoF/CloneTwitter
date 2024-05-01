@@ -32,3 +32,9 @@ func (i *authInfra) SignUp(userId string, email string, password string) error {
 	})
 	return err
 }
+
+func (i *authInfra) GetByEmail(email string) (entity.Auth, error) {
+	var auth entity.Auth
+	err := i.db.Where("email = ?", email).First(&auth).Error
+	return auth, err
+}

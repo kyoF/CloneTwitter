@@ -1,6 +1,9 @@
 package repository
 
+import "backend/domain/entity"
+
 type IAuthRepository interface {
-	SignUp(userId string, email string, Password string) error
-	Login(userId string, email string, Password string) error
+	SignUp(userId, email, password string) error
+	Login(userId, email, password string) error
+	GetByEmail(email string) (entity.Auth, error)
 }

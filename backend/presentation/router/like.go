@@ -2,7 +2,6 @@ package router
 
 import (
 	"backend/application/usecase"
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -28,9 +27,7 @@ func (r *likeRouter) ToggleLike() echo.HandlerFunc {
         }
 		userId := body["userId"]
 		tweetId := body["tweetId"]
-        fmt.Println(userId, tweetId)
 		likesCount, err := r.uc.ToggleLike(userId, tweetId)
-        fmt.Println(likesCount)
 		if err != nil {
 			ctx.Error(err)
 		}
