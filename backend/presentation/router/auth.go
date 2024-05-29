@@ -8,20 +8,20 @@ import (
 )
 
 type IAuthRouter interface {
-    SignUp() echo.HandlerFunc
-    Login() echo.HandlerFunc
+	SignUp() echo.HandlerFunc
+	Login() echo.HandlerFunc
 }
 
 type authRouter struct {
-    uc usecase.IAuthUsecase
+	uc usecase.IAuthUsecase
 }
 
 func NewAuthRouter(uc usecase.IAuthUsecase) IAuthRouter {
-    return &authRouter{uc}
+	return &authRouter{uc}
 }
 
 func (r *authRouter) SignUp() echo.HandlerFunc {
-    return func(ctx echo.Context) error {
+	return func(ctx echo.Context) error {
 		userId := ctx.Param("userId")
 		email := ctx.Param("email")
 		password := ctx.Param("password")
@@ -34,8 +34,8 @@ func (r *authRouter) SignUp() echo.HandlerFunc {
 }
 
 func (r *authRouter) Login() echo.HandlerFunc {
-    return func(ctx echo.Context) error {
-        userId := ctx.Param("userId")
+	return func(ctx echo.Context) error {
+		userId := ctx.Param("userId")
 		email := ctx.Param("email")
 		password := ctx.Param("password")
 		err := r.uc.Login(email, userId, password)

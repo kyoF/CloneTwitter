@@ -6,10 +6,10 @@ import (
 )
 
 type ITweetUsecase interface {
-	Create(userId string, text string) (*entity.Tweet, error)
-    FetchAll() ([]entity.Tweet, error)
-    FetchAllByUserId(userId string) ([]entity.Tweet, error)
-    Fetch(tweetId string) (entity.Tweet, error)
+	Create(userId, text string) (*entity.Tweet, error)
+	FetchAll() ([]entity.Tweet, error)
+	FetchAllByUserId(userId string) ([]entity.Tweet, error)
+	Fetch(tweetId string) (entity.Tweet, error)
 }
 
 type tweetUsecase struct {
@@ -22,22 +22,22 @@ func NewTweetUsecase(tweetRepo repository.ITweetRepository) ITweetUsecase {
 	}
 }
 
-func (uc *tweetUsecase) Create(userId string, text string) (*entity.Tweet, error) {
+func (uc *tweetUsecase) Create(userId, text string) (*entity.Tweet, error) {
 	tweet, err := uc.tweetRepo.Create(userId, text)
 	return tweet, err
 }
 
 func (uc *tweetUsecase) FetchAll() ([]entity.Tweet, error) {
-    tweets, err := uc.tweetRepo.FetchAll()
-    return tweets, err
+	tweets, err := uc.tweetRepo.FetchAll()
+	return tweets, err
 }
 
 func (uc *tweetUsecase) FetchAllByUserId(userId string) ([]entity.Tweet, error) {
-    tweets, err := uc.tweetRepo.FetchAllByUserId(userId)
-    return tweets, err
+	tweets, err := uc.tweetRepo.FetchAllByUserId(userId)
+	return tweets, err
 }
 
 func (uc *tweetUsecase) Fetch(tweetId string) (entity.Tweet, error) {
-    tweet, err := uc.tweetRepo.Fetch(tweetId)
-    return tweet, err
+	tweet, err := uc.tweetRepo.Fetch(tweetId)
+	return tweet, err
 }

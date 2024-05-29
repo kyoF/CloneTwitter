@@ -10,6 +10,6 @@ import (
 
 func User(db *gorm.DB) router.IUserRouter {
 	userRepo := mysql.NewUserRepository(db)
-    usecase := usecase.NewUserUsecase(userRepo)
+	usecase := usecase.NewUserUsecase(userRepo)
 	return router.NewUserRouter(usecase)
 }

@@ -10,9 +10,9 @@ import (
 )
 
 func Tweet(db *gorm.DB) router.ITweetRouter {
-    userRepo := mysql.NewUserRepository(db)
+	userRepo := mysql.NewUserRepository(db)
 	tweetRepo := mysql.NewTweetRepository(db)
 	usecase := usecase.NewTweetUsecase(tweetRepo)
-    queryService := query_service.NewFetchTweetCardQueryService(userRepo, tweetRepo)
+	queryService := query_service.NewFetchTweetCardQueryService(userRepo, tweetRepo)
 	return router.NewTweetRouter(usecase, queryService)
 }

@@ -10,14 +10,14 @@ import (
 
 type ITweetRouter interface {
 	FetchAll() echo.HandlerFunc
-    FetchAllByUserId() echo.HandlerFunc
+	FetchAllByUserId() echo.HandlerFunc
 	Fetch() echo.HandlerFunc
 	Create() echo.HandlerFunc
 }
 
 type tweetRouter struct {
 	uc usecase.ITweetUsecase
-    qs query_service.IFetchTweetCardQueryService
+	qs query_service.IFetchTweetCardQueryService
 }
 
 func NewTweetRouter(uc usecase.ITweetUsecase, qs query_service.IFetchTweetCardQueryService) ITweetRouter {
@@ -35,8 +35,8 @@ func (r *tweetRouter) FetchAll() echo.HandlerFunc {
 }
 
 func (r *tweetRouter) FetchAllByUserId() echo.HandlerFunc {
-    return func(ctx echo.Context) error {
-        userId := ctx.Param("userId")
+	return func(ctx echo.Context) error {
+		userId := ctx.Param("userId")
 		tweets, err := r.qs.FetchAllByUserId(userId)
 		if err != nil {
 			ctx.Error(err)
@@ -46,8 +46,8 @@ func (r *tweetRouter) FetchAllByUserId() echo.HandlerFunc {
 }
 
 func (r *tweetRouter) Fetch() echo.HandlerFunc {
-    return func(ctx echo.Context) error {
-        tweetId := ctx.Param("tweetId")
+	return func(ctx echo.Context) error {
+		tweetId := ctx.Param("tweetId")
 		tweet, err := r.uc.Fetch(tweetId)
 		if err != nil {
 			ctx.Error(err)
@@ -58,12 +58,12 @@ func (r *tweetRouter) Fetch() echo.HandlerFunc {
 
 func (r *tweetRouter) Create() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-        body := make(map[string]string)
-        if err := ctx.Bind(&body); err != nil {
-            ctx.Error(err)
-        }
-        userId := body["userId"]
-        text := body["text"]
+		body := make(map[string]string)
+		if err := ctx.Bind(&body); err != nil {
+			ctx.Error(err)
+		}
+		userId := body["userId"]
+		text := body["text"]
 		tweet, err := r.uc.Create(userId, text)
 		if err != nil {
 			ctx.Error(err)

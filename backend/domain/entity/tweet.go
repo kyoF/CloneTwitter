@@ -8,5 +8,5 @@ type Tweet struct {
 }
 
 func (t *Tweet) UpdateCount(likesCount int) {
-    t.LikesCount = likesCount
+	t.LikesCount = likesCount
 }

@@ -7,8 +7,8 @@ import (
 )
 
 type IAuthUsecase interface {
-	SignUp(userId string, email string, password string) error
-	Login(userId string, email string, password string) error
+	SignUp(userId, email, password string) error
+	Login(userId, email, password string) error
 }
 
 type authUsecase struct {
@@ -21,7 +21,7 @@ func NewAuthUsecase(authRepo repository.IAuthRepository) IAuthUsecase {
 	}
 }
 
-func (u *authUsecase) SignUp(userId string, email string, password string) error {
+func (u *authUsecase) SignUp(userId, email, password string) error {
 	_, err := u.authRepo.GetByEmail(email)
 	if err != nil {
 		log.Fatal(err)
@@ -34,7 +34,7 @@ func (u *authUsecase) SignUp(userId string, email string, password string) error
 	return err
 }
 
-func (u *authUsecase) Login(userId string, email string, password string) error {
+func (u *authUsecase) Login(userId, email, password string) error {
 	err := u.authRepo.Login(userId, email, password)
 	return err
 }

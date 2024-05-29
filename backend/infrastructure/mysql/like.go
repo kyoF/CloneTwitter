@@ -36,19 +36,19 @@ func (i *likeInfra) Delete(userId string, tweetId string) error {
 
 func (i *likeInfra) Find(userId string, tweetId string) *entity.Like {
 	var like *entity.Like
-    // gorm returns the state of no record as an ERROR
+	// gorm returns the state of no record as an ERROR
 	_ = i.db.Where("user_id = ? AND tweet_id = ?", userId, tweetId).First(&like)
 	return like
 }
 
 func (i *likeInfra) FetchesByUserId(userId string) ([]*entity.Like, error) {
-    var likes []*entity.Like
-    err := i.db.Where("user_id = ?", userId).Find(likes).Error
-    return likes, err
+	var likes []*entity.Like
+	err := i.db.Where("user_id = ?", userId).Find(likes).Error
+	return likes, err
 }
 
 func (i *likeInfra) FetchAllByTweetId(tweetId string) ([]*entity.Like, error) {
-    var likes []*entity.Like
-    err := i.db.Where("tweet_id = ?", tweetId).Find(likes).Error
-    return likes, err
+	var likes []*entity.Like
+	err := i.db.Where("tweet_id = ?", tweetId).Find(likes).Error
+	return likes, err
 }
