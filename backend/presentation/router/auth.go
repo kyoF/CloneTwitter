@@ -35,20 +35,21 @@ func (r *authRouter) SignUp() echo.HandlerFunc {
 }
 
 type loginReq struct {
-	userId   string `json:"userId"`
-	email    string `json:"email"`
-	password string `json:"password"`
+	UserId   string `json:"userId"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 func (r *authRouter) Login() echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		req := new(loginReq)
+		var req loginReq
 		if err := ctx.Bind(&req); err != nil {
 			ctx.Error(err)
 		}
-		fmt.Println(req.email)
-		fmt.Println(req.password)
-		fmt.Println(req.userId)
+		fmt.Println("aaa")
+		fmt.Println(req.Email)
+		fmt.Println(req.Password)
+		fmt.Println(req.UserId)
 		// userId := ctx.Param("userId")
 		// email := ctx.Param("email")
 		// password := ctx.Param("password")
@@ -56,6 +57,7 @@ func (r *authRouter) Login() echo.HandlerFunc {
 		// if err != nil {
 		// 	ctx.Error(err)
 		// }
+		fmt.Println("success")
 		return ctx.JSON(http.StatusOK, nil)
 	}
 }
