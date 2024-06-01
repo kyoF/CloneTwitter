@@ -46,18 +46,13 @@ func (r *authRouter) Login() echo.HandlerFunc {
 		if err := ctx.Bind(&req); err != nil {
 			ctx.Error(err)
 		}
-		fmt.Println("aaa")
-		fmt.Println(req.Email)
-		fmt.Println(req.Password)
-		fmt.Println(req.UserId)
-		// userId := ctx.Param("userId")
-		// email := ctx.Param("email")
-		// password := ctx.Param("password")
-		// err := r.uc.Login(email, userId, password)
-		// if err != nil {
-		// 	ctx.Error(err)
-		// }
-		fmt.Println("success")
+		userId := ctx.Param("userId")
+		email := ctx.Param("email")
+		password := ctx.Param("password")
+		err := r.uc.Login(email, userId, password)
+		if err != nil {
+			ctx.Error(err)
+		}
 		return ctx.JSON(http.StatusOK, nil)
 	}
 }

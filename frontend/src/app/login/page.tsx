@@ -4,7 +4,6 @@ export default async function Login() {
     email: "test@test.com",
     password: "test-password",
   }
-  console.log(body);
   const res: Response = await fetch(
     `${process.env.API_URL}/login`,
     {
@@ -14,7 +13,6 @@ export default async function Login() {
       cache: 'no-store'
     }
   );
-  console.log(res);
   return <div>login</div>;
 }
 
