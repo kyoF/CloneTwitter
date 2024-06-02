@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { CiUser, CiHeart } from "react-icons/ci";
 
 import type { TTweet } from '@/types';
 
@@ -38,7 +37,7 @@ export const TweetCard = ({ ...tweet }: TTweet) => {
 
   return (
     <>
-      <CiUser />
+      <div>user icon</div>
       <div>
         <Link href={`/user/${userId}`}>
           @{userId}
@@ -48,7 +47,7 @@ export const TweetCard = ({ ...tweet }: TTweet) => {
       <div>{text}</div>
       <button onClick={toggleLike}>
         <div>
-          <CiHeart />
+          heart icon
         </div>
       </button>
       {like}
