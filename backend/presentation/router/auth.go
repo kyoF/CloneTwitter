@@ -2,7 +2,6 @@ package router
 
 import (
 	"backend/application/usecase"
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -34,22 +33,18 @@ func (r *authRouter) SignUp() echo.HandlerFunc {
 	}
 }
 
-type loginReq struct {
-	UserId   string `json:"userId"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
 func (r *authRouter) Login() echo.HandlerFunc {
+	type req struct {
+		UserId   string `json:"userId"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
 	return func(ctx echo.Context) error {
-		var req loginReq
+		var req req
 		if err := ctx.Bind(&req); err != nil {
 			ctx.Error(err)
 		}
-		userId := ctx.Param("userId")
-		email := ctx.Param("email")
-		password := ctx.Param("password")
-		err := r.uc.Login(email, userId, password)
+		err := r.uc.Login(req.Email, req.UserId, req.Password)
 		if err != nil {
 			ctx.Error(err)
 		}
