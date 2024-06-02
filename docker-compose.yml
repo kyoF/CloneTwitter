@@ -24,7 +24,7 @@ services:
     container_name: frontend
     hostname: frontend
     build:
-      context: ./frontend
+      context: ./frontend-test
       dockerfile: ./.docker/Dockerfile.Dev
     environment:
       TZ: Asia/Tokyo
@@ -33,7 +33,7 @@ services:
     networks:
       - twitter
     volumes:
-      - ./frontend:/app
+      - ./frontend-test:/app
       - /app/node_modules
     profiles: ["dev"]
 
