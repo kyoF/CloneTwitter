@@ -7,7 +7,7 @@ import { TweetCreateModal } from '@/components/tweet/CreateModal';
 export default function TweetCreateModalPage() {
   const router = useRouter();
   const [tweetText, setTweetText] = useState<string>('');
-  const [characterCount, setCharacterCount] = useState<integer>(0);
+  const [characterCount, setCharacterCount] = useState<number>(0);
 
   const textChange = (e) => {
     const text = e.target.value;
