@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"backend/domain/repository"
-	"backend/domain/value_objects"
 	"log"
 )
 
@@ -26,11 +25,7 @@ func (u *authUsecase) SignUp(userId, email, password string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	hashedPass, err := value_objects.NewPassword(password)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = u.authRepo.SignUp(userId, email, hashedPass.Value)
+	err = u.authRepo.SignUp(userId, email, password)
 	return err
 }
 
