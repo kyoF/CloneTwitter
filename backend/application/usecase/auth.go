@@ -1,9 +1,6 @@
 package usecase
 
-import (
-	"backend/domain/repository"
-	"log"
-)
+import "backend/domain/repository"
 
 type IAuthUsecase interface {
 	SignUp(userId, email, password string) error
@@ -23,7 +20,7 @@ func NewAuthUsecase(authRepo repository.IAuthRepository) IAuthUsecase {
 func (u *authUsecase) SignUp(userId, email, password string) error {
 	_, err := u.authRepo.GetByEmail(email)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	err = u.authRepo.SignUp(userId, email, password)
 	return err
