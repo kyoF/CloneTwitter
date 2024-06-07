@@ -1,7 +1,9 @@
 package presentation
 
 import (
+	customMiddleware "backend/presentation/middleware"
 	"backend/presentation/router"
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -20,6 +22,14 @@ func InitRoute(
 
 	a := e.Group("/api")
 
+	test := a.Group("/authenticated")
+	test.Use(customMiddleware.JWTMiddleware)
+	test.GET("/test", func(c echo.Context) error {
+		testText := c.Get("user_id").(string)
+		return c.JSON(http.StatusOK, map[string]string{
+			"message": "Private data for user " + testText,
+		})
+	})
 	a.POST("/signup", authRouter.SignUp())
 	a.POST("/login", authRouter.Login())
 

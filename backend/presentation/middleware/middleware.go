@@ -1,15 +1,15 @@
 package middleware
 
 import (
+	"backend/utils"
 	"errors"
 	"strings"
 
-	"github.com/labstack/echo/v4"
 	"github.com/golang-jwt/jwt"
+	"github.com/labstack/echo/v4"
 )
 
-// JWTキーの秘密鍵
-var jwtSecretKey = []byte("your-secret-key")
+var jwtSecretKey = []byte(utils.GetEnv("JWT_SECRET_KEY", "jwtsecretkey"))
 
 // JWTミドルウェア
 func JWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
