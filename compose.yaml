@@ -1,0 +1,44 @@
+services:
+  backend:
+    container_name: backend
+    hostname: backend
+    build:
+      context: ./backend
+      dockerfile: ./.docker/Dockerfile.dev
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 5000:5000
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - twitter
+    volumes:
+      - ./backend:/backend
+
+  database:
+    container_name: database
+    build: database/
+    hostname: database
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: twitter
+      MYSQL_PASSWORD: twitter
+      MYSQL_ROOT_PASSWORD: twitter
+      MYSQL_DATABASE: twitter
+      TZ: Asia/Tokyo
+    volumes:
+      - mysql-data:/var/lib/mysql-files
+      - ./database/initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - twitter
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $MYSQL_USER -p $MYSQL_PASSWORD
+
+volumes:
+  mysql-data:
+
+networks:
+  twitter:
