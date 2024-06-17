@@ -1,9 +1,9 @@
 services:
   backend:
-    container_name: backend
+    container_name: fixBackend
     hostname: backend
     build:
-      context: ./backend
+      context: ./fixBackend
       dockerfile: ./.docker/Dockerfile.dev
     environment:
       TZ: Asia/Tokyo
@@ -15,7 +15,7 @@ services:
     networks:
       - twitter
     volumes:
-      - ./backend:/backend
+      - ./fixBackend:/backend
 
   database:
     container_name: database
